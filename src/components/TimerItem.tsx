@@ -8,6 +8,7 @@ import { EditTimerModal } from './EditTimerModal';
 import { TimerAudio } from '../utils/audio';
 import { TimerControls } from './TimerControls';
 import { TimerProgress } from './TimerProgress';
+import { useDispatch } from 'react-redux';
 
 interface TimerItemProps {
   timer: Timer;
@@ -15,16 +16,22 @@ interface TimerItemProps {
 
 export const TimerItem: React.FC<TimerItemProps> = ({ timer }) => {
   const { toggleTimer, deleteTimer, updateTimer, restartTimer } = useTimerStore();
+  const dispatch = useDispatch();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const intervalRef = useRef<number | null>(null);
   const timerAudio = TimerAudio.getInstance();
   const hasEndedRef = useRef(false);
+  const [timerVal, setTimerVal] = useState(timer.remainingTime)
+
 
   useEffect(() => {
     if (timer.isRunning) {
       intervalRef.current = window.setInterval(() => {
-        updateTimer(timer.id);
-        
+        // updateTimer(timer.id);
+        // setTimerVal(prev=>{
+        //   return prev -= 1
+        // })
+        dispatch(updateTimer(timer.id))
         if (timer.remainingTime <= 1 && !hasEndedRef.current) {
           hasEndedRef.current = true;
           timerAudio.play().catch(console.error);
@@ -33,15 +40,16 @@ export const TimerItem: React.FC<TimerItemProps> = ({ timer }) => {
             duration: 5000,
             action: {
               label: 'Dismiss',
-              onClick: timerAudio.stop,
+              onClick: timerAudio.stop()!,
             },
           });
         }
+        console.log(timer.id)
       }, 1000);
     }
 
     return () => clearInterval(intervalRef.current!);
-  }, [timer.isRunning, timer.id, timer.remainingTime, timer.title, timerAudio, updateTimer]);
+  }, [timer.isRunning, timer.id, timer.remainingTime, timer.title, timerAudio, updateTimer, intervalRef.current]);
 
   const handleRestart = () => {
     hasEndedRef.current = false;
@@ -107,6 +115,7 @@ export const TimerItem: React.FC<TimerItemProps> = ({ timer }) => {
           </div>
           <div className="flex flex-col items-center mt-6">
             <div className="text-4xl font-mono font-bold text-gray-800 mb-4">
+              {/* {formatTime(timerVal)} */}
               {formatTime(timer.remainingTime)}
             </div>
             
