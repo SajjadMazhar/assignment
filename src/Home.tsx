@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { Plus, Clock } from 'lucide-react';
 import { TimerList } from './components/TimerList';
-import { AddTimerModal } from './components/AddTimerModal';
 import { Toaster } from 'sonner';
+import { CommonModal } from './components/CommonModal';
 
 function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       <Toaster position="top-right" />
@@ -27,7 +26,7 @@ function Home() {
         
         <TimerList />
         
-        <AddTimerModal
+        <CommonModal
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
         />

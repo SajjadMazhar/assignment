@@ -10,6 +10,9 @@ const timerSlice = createSlice({
   name: 'timer',
   initialState,
   reducers: {
+    updateFromLocal:(state, action)=>{
+      state.timers = action.payload
+    },
     addTimer: (state, action) => {
       state.timers.push({
         ...action.payload,
@@ -67,6 +70,7 @@ export const {
   updateTimer,
   restartTimer,
   editTimer,
+  updateFromLocal
 } = timerSlice.actions;
 
 export const useTimerStore = () => {
@@ -81,5 +85,6 @@ export const useTimerStore = () => {
     updateTimer: (id: string) => dispatch(updateTimer(id)),
     restartTimer: (id: string) => dispatch(restartTimer(id)),
     editTimer: (id: string, updates: Partial<Timer>) => dispatch(editTimer({ id, updates })),
+    updateFromLocal: (timers:Timer[])=> dispatch(updateFromLocal(timers))
   };
 };

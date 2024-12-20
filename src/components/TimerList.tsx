@@ -1,10 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { TimerItem } from './TimerItem';
 import { useTimerStore } from '../store/useTimerStore';
 import { EmptyState } from './EmptyState';
+import useLocalStorage from '../hooks/useLocalStorage';
+import { Timer } from '../types/timer';
 
 export const TimerList: React.FC = () => {
-  const { timers } = useTimerStore();
+  const { timers, updateFromLocal } = useTimerStore();
+  const [storedValueState, setStoredValue] = useLocalStorage('storedState', [])
+
+  useEffect(()=>{
+    if(storedValueState){
+      updateFromLocal(storedValueState)
+    }
+  }, [])
+
+  useEffect(()=>{
+    setStoredValue(timers)
+  }, [timers])
 
   return (
     <div className="space-y-4 min-h-[400px]">
@@ -20,7 +33,7 @@ export const TimerList: React.FC = () => {
         </div>
       ) : (
         <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-          {timers.map((timer) => (
+          {storedValueState?.map((timer:Timer) => (
             <TimerItem key={timer.id} timer={timer} />
           ))}
         </div>
