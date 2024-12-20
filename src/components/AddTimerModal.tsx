@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { X, Clock } from 'lucide-react';
 import { useTimerStore } from '../store/useTimerStore';
 import { validateTimerForm } from '../utils/validation';
+import Button from './Button';
 
 interface AddTimerModalProps {
   isOpen: boolean;
@@ -183,7 +184,7 @@ export const AddTimerModal: React.FC<AddTimerModalProps> = ({ isOpen, onClose })
             >
               Cancel
             </button>
-            <button
+            {/* <button
               type="submit"
               className={`px-4 py-2 text-sm font-medium text-white rounded-md transition-colors ${
                 isTitleValid && isTimeValid
@@ -193,7 +194,8 @@ export const AddTimerModal: React.FC<AddTimerModalProps> = ({ isOpen, onClose })
               disabled={!isTitleValid || !isTimeValid}
             >
               Add Timer
-            </button>
+            </button> */}
+            <Button isTitleValid={isTitleValid} isTimeValid={isTimeValid} />
           </div>
         </form>
       </div>

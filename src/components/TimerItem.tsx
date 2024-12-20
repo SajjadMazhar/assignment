@@ -36,10 +36,7 @@ export const TimerItem: React.FC<TimerItemProps> = ({ timer }) => {
         //   return prev -= 1
         // })
 
-        setTimerVal( () => {
-          updateTimer(timer.id)
-          return null;
-        })
+        updateTimer(timer.id)
         if (timer.remainingTime <= 1 && !hasEndedRef.current) {
           hasEndedRef.current = true;
           timerAudio.play().catch(console.error);
