@@ -1,9 +1,8 @@
 import { describe, it, expect, vi } from "vitest";
-import { validateTimerForm, TimerFormData } from "./validation"; // Adjust the import path
+import { validateTimerForm, TimerFormData } from "./validation";
 import { toast } from "sonner";
 
 describe("validateTimerForm", () => {
-    // Mock the toast.error function
     vi.spyOn(toast, "error").mockImplementation(() => {});
 
     it("should show an error if the title is empty", () => {

@@ -15,7 +15,7 @@ const Button: React.FC<ButtonInterface> = ({ isTitleValid, isTimeValid, editing=
                     ? "bg-blue-600 hover:bg-blue-700"
                     : "bg-blue-400 cursor-not-allowed"
             }`}
-            disabled={!isTitleValid || !isTimeValid}
+            // disabled={!isTitleValid || !isTimeValid}
         >
             {editing ? 'Save Changes' : 'Add Timer'}
         </button>
