@@ -114,7 +114,7 @@ export const CommonModal: React.FC<AddTimerModalProps> = ({
     const isTitleValid = title.trim().length > 0 && title.length <= 50;
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50" role="dialog">
             <div className="bg-white rounded-lg p-6 w-full max-w-md shadow-xl">
                 <div className="flex justify-between items-center mb-6">
                     <div className="flex items-center gap-2">

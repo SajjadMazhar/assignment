@@ -21,18 +21,9 @@ export const TimerItem: React.FC<TimerItemProps> = ({ timer }) => {
   const hasEndedRef = useRef(false);
 
 
-  // const updater = (timerr:any)=>{
-  //   updateTimer(timerr.id)
-  //   return timerr
-  // }
   useEffect(() => {
     if (timer.isRunning) {
       intervalRef.current = window.setInterval(() => {
-        // updateTimer(timer.id);
-        // setTimerVal(prev=>{
-        //   return prev -= 1
-        // })
-
         updateTimer(timer.id)
         if (timer.remainingTime <= 1 && !hasEndedRef.current) {
           hasEndedRef.current = true;

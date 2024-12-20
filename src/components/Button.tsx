@@ -3,7 +3,7 @@ import React from "react";
 interface ButtonInterface {
     isTitleValid: boolean;
     isTimeValid: boolean;
-    editing?:boolean
+    editing:boolean
 }
 
 const Button: React.FC<ButtonInterface> = ({ isTitleValid, isTimeValid, editing=false }) => {
@@ -15,7 +15,8 @@ const Button: React.FC<ButtonInterface> = ({ isTitleValid, isTimeValid, editing=
                     ? "bg-blue-600 hover:bg-blue-700"
                     : "bg-blue-400 cursor-not-allowed"
             }`}
-            // disabled={!isTitleValid || !isTimeValid}
+            disabled={!isTitleValid || !isTimeValid}
+            role={editing? 'editbtn':'btn'}
         >
             {editing ? 'Save Changes' : 'Add Timer'}
         </button>

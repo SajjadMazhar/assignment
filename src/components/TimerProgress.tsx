@@ -9,6 +9,7 @@ export const TimerProgress: React.FC<TimerProgressProps> = ({ progress }) => (
     <div
       className="h-full rounded-full bg-blue-600 transition-all duration-1000"
       style={{ width: `${progress}%` }}
+      role="progressbar"
     />
   </div>
 );

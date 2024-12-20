@@ -37,7 +37,6 @@ const timerSlice = createSlice({
         timer.isRunning = timer.remainingTime > 0;
       }
       state = statess
-      // return state
     },
     restartTimer: (state, action) => {
       const timer = state.timers.find(timer => timer.id === action.payload);
