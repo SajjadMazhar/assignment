@@ -21,9 +21,13 @@ export const TimerItem: React.FC<TimerItemProps> = ({ timer }) => {
   const intervalRef = useRef<number | null>(null);
   const timerAudio = TimerAudio.getInstance();
   const hasEndedRef = useRef(false);
-  const [timerVal, setTimerVal] = useState(timer.remainingTime)
+  const [timerVal, setTimerVal] = useState(null)
 
 
+  // const updater = (timerr:any)=>{
+  //   updateTimer(timerr.id)
+  //   return timerr
+  // }
   useEffect(() => {
     if (timer.isRunning) {
       intervalRef.current = window.setInterval(() => {
@@ -31,7 +35,11 @@ export const TimerItem: React.FC<TimerItemProps> = ({ timer }) => {
         // setTimerVal(prev=>{
         //   return prev -= 1
         // })
-        dispatch(updateTimer(timer.id))
+
+        setTimerVal( () => {
+          updateTimer(timer.id)
+          return null;
+        })
         if (timer.remainingTime <= 1 && !hasEndedRef.current) {
           hasEndedRef.current = true;
           timerAudio.play().catch(console.error);
@@ -49,7 +57,7 @@ export const TimerItem: React.FC<TimerItemProps> = ({ timer }) => {
     }
 
     return () => clearInterval(intervalRef.current!);
-  }, [timer.isRunning, timer.id, timer.remainingTime, timer.title, timerAudio, updateTimer, intervalRef.current]);
+  }, [timer.isRunning, timer.id, timer.remainingTime, timer.title, timerAudio]);
 
   const handleRestart = () => {
     hasEndedRef.current = false;
@@ -115,7 +123,7 @@ export const TimerItem: React.FC<TimerItemProps> = ({ timer }) => {
           </div>
           <div className="flex flex-col items-center mt-6">
             <div className="text-4xl font-mono font-bold text-gray-800 mb-4">
-              {/* {formatTime(timerVal)} */}
+              {/* {formatTime(timerVal.remainingTime)} */}
               {formatTime(timer.remainingTime)}
             </div>
             
